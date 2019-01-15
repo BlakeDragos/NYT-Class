@@ -76,7 +76,7 @@
   </body>
   <script>
 
-  $("#serch").on('click',function(){
+  $("#search").on('click',function(){
 
     var url = "https://api.nytimes.com/svc/search/v2/articlesearch.json";
     url += '?' + $.param({
@@ -89,7 +89,12 @@
       console.log(result);
       }).fail(function(err) {
         throw err;
-}).then()
+}).then(function (response){
+  var articles = response.response.docs;
+  
+  for(i=0; i<results.length; i++)
+    $("#articles").append()
+});
 
   });
 
