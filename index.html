@@ -1,15 +1,16 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <title>New York Times Search </title>
-  </head>
+  <title>New York Times Search </title>
+</head>
 
-  <style>
+<style>
   #head {
     text-align: center;
     background: pink;
@@ -33,71 +34,81 @@
   }
   </style>
 
-  <body>
-    <div class="jumbotron jumbotron-fluid" id = "head">
-      <div class="container" >
-        <h1 class="display-4 middle">New York Time Search</h1>
-      </div>
+<body>
+  <div class="jumbotron jumbotron-fluid" id="head">
+    <div class="container">
+      <h1 class="display-4 middle">New York Time Search</h1>
     </div>
+  </div>
 
 
-     <div class = "container" id = "main-container" >
+  <div class="container" id="main-container">
 
 
-       <form>
-         <div class="form-group">
-           <label for="searchterm">Search Term</label>
-           <input type="text" class="form-control" id="search" >
-         </div>
-         <div class="form-group">
-           <label for="Number of Records To Retrieve">Number of Records To Retrieve</label>
-           <input type="text" class="form-control" id="number" >
-         </div>
-         <div class="form-group">
-           <label for="Start Year">Start Year (Optional)</label>
-           <input type="text" class="form-control" id="startyear" >
-         </div>
-         <div class="form-group">
-           <label for="End Year">End Year (Optional)</label>
-           <input type="text" class="form-control" id="endyear" >
-         </div>
-         <button type="button" class="btn btn-info">
-           <span class="glyphicon glyphicon-search"></span> Search
-         </button>
-         <button type="button" class="btn btn-info">
-           <span class="glyphicon glyphicon-trash"></span> Clear Results
-         </button>
-       </form>
-     </div>
-   </br>
- </br>
-     <div class = "container" id = "articles">  Articles
-     </div>
-  </body>
-  <script>
+    <form>
+      <div class="form-group">
+        <label for="searchterm">Search Term</label>
+        <input type="text" class="form-control">
+      </div>
+      <div class="form-group">
+        <label for="Number of Records To Retrieve">Number of Records To Retrieve</label>
+        <input type="text" class="form-control" id="number">
+      </div>
+      <div class="form-group">
+        <label for="Start Year">Start Year (Optional)</label>
+        <input type="text" class="form-control" id="startyear">
+      </div>
+      <div class="form-group">
+        <label for="End Year">End Year (Optional)</label>
+        <input type="text" class="form-control" id="endyear">
+      </div>
+      <button type="button" class="btn btn-info" id="searchbtn">
+        <span class="glyphicon glyphicon-search"></span> Search
+      </button>
+      <button type="button" class="btn btn-info">
+        <span class="glyphicon glyphicon-trash"></span> Clear Results
+      </button>
+    </form>
+  </div>
+  </br>
+  </br>
+  <div class="container" id="articles"> Articles
+  </div>
+</body>
+<script>
 
-  $("#search").on('click',function(){
-
+  $("#searchbtn").click(function () {
     var url = "https://api.nytimes.com/svc/search/v2/articlesearch.json";
     url += '?' + $.param({
-      'api-key': "2a84bf81d72e4133939bb90a06cc7a9e"
+      'api-key': "2a84bf81d72e4133939bb90a06cc7a9e",
+      "q": "Water"
     });
-  $.ajax({
-    url: url,
-    method: 'GET',
-      }).done(function(result) {
-      console.log(result);
-      }).fail(function(err) {
-        throw err;
-}).then(function (response){
-  var articles = response.response.docs;
-  
-  for(i=0; i<results.length; i++)
-    $("#articles").append()
-});
 
+    $.ajax({
+      url: url,
+      method: 'GET',
+    }).done(function (result) {
+      console.log(result);
+
+    }).then(function (response) {
+      var articles = response.response.docs;
+
+      for (i = 0; i < results.length; i++) {
+
+        var article = $("<div>");
+
+        var year = results[i].pub_date;
+
+        var p = $("<p>").text("Year: " + rating);
+
+
+        article.prepend(p);
+
+        $("#articles").prepend(article);
+      };
+    });
   });
 
-  </script>
-  <!--   2a84bf81d72e4133939bb90a06cc7a9e   -->
+</script>
+
 </html>
